@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>image to pdf converter</title>
+        <link rel="stylesheet" href="uday.css">
+    </head>
+    <body>
+        <div class="container">
+            <img id="showImg">
+            <div class="button">
+                <div class="upload">
+                    <input type="file"onchange="loadfile(event)"name=" "accept=" .png, .jpg, .jpeg ">upload image
+
+                </div>
+                <button onclick="pdfDown()">download to PDF</button>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+        <script>
+
+            var newImage,showImg;
+
+            function loadfile(event){
+                showImg = document.getElementById("showImg");
+                showImg.src = URL.createObjectURL(event.target.files[0]);
+
+                newImage = document.createElement('img');
+                newImage.src = URL.createObjectURL(event.target.files[0]);
+
+
+                showImg.onload = function(){
+                    URL.revokeObjectURL(showImg.scr)
+                }
+            };
+            function pdfDown(){
+                console.log(newImage)
+                var doc = new jspdf();
+                doc.addImage(newImage, 10,10);
+                doc.save('ImgToPDF.pdf')
+            }
+           
+        </script>
+        
+
+    
+    </body>
+</html>
